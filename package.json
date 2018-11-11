@@ -22,5 +22,8 @@
   "homepage": "https://github.com/DiscordBotsDev/dbdapi.js#readme",
   "dependencies": {
     "node-superfetch": "^0.1.9"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0"
   }
 }
