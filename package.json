@@ -1,0 +1,26 @@
+{
+  "name": "dbdapi",
+  "version": "0.1.0",
+  "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiscordBotsDev/dbdapi.js.git"
+  },
+  "keywords": [
+    "DiscordBotsDev",
+    "dbdapi.js"
+  ],
+  "author": "Hazmi35",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DiscordBotsDev/dbdapi.js/issues"
+  },
+  "homepage": "https://github.com/DiscordBotsDev/dbdapi.js#readme",
+  "dependencies": {
+    "node-superfetch": "^0.1.9"
+  }
+}
