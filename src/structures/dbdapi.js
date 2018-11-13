@@ -17,12 +17,6 @@ module.exports = class DiscordBotsDev {
         if (!ownerID) throw new Error('Invalid client options');
         if (isNaN(ownerID)) return new Error('Invalid bot id');
         tokenValidator(token, botID, ownerID, this.baseAPIUrl);
-
-        /**
-        *  Get all bots that was registered in DiscordBots Development Database.
-        * @returns {Promise} A promise that contains bots.
-        */
-        this.getAllBots = require('../functions/getAllBots');
         
         /**
         *  Get any specified bot data using bot id
