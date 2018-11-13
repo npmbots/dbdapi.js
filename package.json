@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/DiscordBotsDev/dbdapi.js#readme",
   "dependencies": {
+    "sqlite3": "^4.0.4",
     "superagent": "^4.0.0-beta.5"
   },
   "devDependencies": {
