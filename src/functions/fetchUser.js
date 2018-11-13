@@ -15,7 +15,7 @@ module.exports = async (ID) => {
          else throw new Error(e);
      }
      if (response === undefined) return undefined;
-     data = response.body;
+     data = await response.body;
      var user = require('../structures/user');
      var realData = new user(data);
      return realData;

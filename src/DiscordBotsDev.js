@@ -23,7 +23,7 @@ module.exports = class DiscordBotsDev {
         * @param {String} ID DiscordBots ID to get the data.
         * @returns {Promise} A promise that contains data of the bot
         */
-        this.getBot = require('../functions/getBot');
+        this.getBot = require('./functions/getBot');
 
 
         /**
@@ -31,7 +31,7 @@ module.exports = class DiscordBotsDev {
          * @param {String} ID User ID from Discord
          * @returns {Promise} A Promise that contains user class.
          */
-        this.fetchUser = require('../functions/fetchUser');
+        this.fetchUser = require('./functions/fetchUser');
     }
 };
 

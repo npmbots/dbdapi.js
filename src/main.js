@@ -1,1 +1,1 @@
-module.exports = require('./structures/dbdapi');
+module.exports = require('./structures/DiscordBotsDev');
