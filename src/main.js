@@ -1,1 +1,1 @@
-module.exports = require('./structures/dbdapi.js');
+module.exports = require('./structures/dbdapi');
