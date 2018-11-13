@@ -6,32 +6,47 @@ module.exports = class DiscordBotsDev {
     /**
      * Create new DiscordBotsDev Wrapper Client
      * @param {String} token DiscordBotsDev token
-     * @param {String} botID Your bot ID
+     * @param {String} client Your bot's client object
      * @param {String} ownerID Your ID
      */
-    constructor(token, botID, ownerID) {
-        //console.log(token, '\n', botID, '\n', ownerID);
+    constructor(token, client, ownerID) {
         this.baseAPIUrl = 'https://discordbots-dev.tru.io/api';
-        if (!botID) throw new Error('Invalid client options');
-        if (isNaN(botID)) return new Error('Invalid bot id');
+        if (!client) throw new Error('Invalid client options');
+        //if (!client.user.id) throw new Error('Unsupported Library')
+        if (isNaN(client.user.id)) throw new Error('Invalid bot id');
         if (!ownerID) throw new Error('Invalid client options');
         if (isNaN(ownerID)) return new Error('Invalid bot id');
-        if (token) { tokenValidator(token, botID, ownerID, this.baseAPIUrl); }
-        
+        if (token) { tokenValidator(token, client.user.id, ownerID, this.baseAPIUrl); }
+        else console.warn("No DiscordBotsDev Token was provided");
+
         /**
         *  Get any specified bot data using bot id
-        * @param {String} ID DiscordBots ID to get the data.
-        * @returns {Promise} A promise that contains data of the bot
+        * @param {String} ID Bot's user ID
+        * @returns {Promise<Object>} A promise that contains data of the bot
         */
-        this.getBot = require('./functions/getBot');
+        this.getBot = async (ID) => {
+            if (!ID || !client) throw new Error('[getBot] No ID was Provided.');
+            var userID = ID || client.user.id;
+            const response = await request.get(`https://discordbots-dev.tru.io/api/bots/${userID}`);
+            const body = await response.body;
 
+            if (body.error === "bot_not_found") return undefined;
+            else return body;
+        };
 
         /**
-         * Fetches user from Discord using their id
-         * @param {String} ID User ID from Discord
-         * @returns {Promise} A Promise that contains user class.
+         * Fetches User from Discord 
+         * @param {String} ID 
+         * @returns {Promise<Object>}
          */
-        this.fetchUser = require('./functions/fetchUser');
+        this.fetchUser = async (ID) => {
+            if (!ID) throw new Error('[fetchUser] No ID was Provided.');
+            const response = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${ID}`);
+            const body = await response.body;
+
+            if (body.error === "unknown_user") return undefined;
+            else return body;
+        };
     }
 };
 
