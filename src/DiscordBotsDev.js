@@ -28,10 +28,18 @@ module.exports = class DiscordBotsDev {
             if (!ID || !client) throw new Error('[getBot] No ID was Provided.');
             var userID = ID || client.user.id;
             const response = await request.get(`https://discordbots-dev.tru.io/api/bots/${userID}`);
-            const body = await response.body;
-
-            if (body.error === "bot_not_found") return undefined;
-            else return body;
+            const bodyRaw = await response.body;
+            if (bodyRaw.error === "bot_not_found") return undefined;
+            const owner = await fetchUser(bodyRaw.ownerID);
+            const botUser = await fetchUser(bodyRaw.botID);
+            const body = {
+                owner: owner,
+                bot: botUser,
+                prefix: bodyRaw.prefix,
+                accepted: bodyRaw.accepted,
+                claimed: bodyRaw.claimed
+            }
+            return body;
         };
 
         /**
@@ -79,4 +87,10 @@ function fetchToken(token, botID, ownerID, baseAPIUrl) {
         if (botData.ownerID !== ownerUser.id) throw new Error("You are not owner of this bot.");
         else return 'success';
     });
+}
+
+async function fetchUser(userID) {
+    let { body: user } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`);
+    
+    return user;
 }
