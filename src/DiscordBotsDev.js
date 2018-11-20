@@ -57,7 +57,12 @@ module.exports = class DiscordBotsDev {
             else return body;
         };
 
-        this.postStats = async (serverCount, userCount) => { //eslint-disable-line
+        /**
+         * Posts your bot stats to DiscordBots Dev (serversCount and usersCount)
+         * @param {String} serversCount Your bot servers count
+         * @param {String} usersCount Your bot users count
+         */
+        this.postStats = async (serversCount, usersCount) => { //eslint-disable-line
             return "Still In Development";
         };
     }
