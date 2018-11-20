@@ -59,10 +59,12 @@ module.exports = class DiscordBotsDev {
 
         /**
          * Posts your bot stats to DiscordBots Dev (serversCount and usersCount)
-         * @param {String} serversCount Your bot servers count
-         * @param {String} usersCount Your bot users count
+         * [!IMPORTANT!] This function needs DiscordBotsDev token.
+         * @param {String} botID Your bot's user id
+         * @param {String} serversCount Your bot's servers count
+         * @param {String} usersCount Your bot's users count
          */
-        this.postStats = async (serversCount, usersCount) => { //eslint-disable-line
+        this.postStats = async (botID, serversCount, usersCount) => { //eslint-disable-line
             return "Still In Development";
         };
     }
