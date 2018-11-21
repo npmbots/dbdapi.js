@@ -4,11 +4,11 @@
 
 <div align="center">
     <p>
-    <a href="https://npmjs.com/package/discordeco.js"><img src="https://nodei.co/npm/discordeco.js.png?downloads=true&stars=false"/></a>
+    <a href="https://npmjs.com/package/dbdapi.js"><img src="https://nodei.co/npm/dbdapi.js.png?downloads=true&stars=false"/></a>
     <br>
-    <a href="https://travis-ci.org/Hazmi35/discoedeco.js"><img src="https://travis-ci.org/Hazmi35/discordeco.js.svg"/></a>
-    <a href="https://david-dm.org/Hazmi35/discordeco.js"><img src="https://david-dm.org/Hazmi35/discordeco.js/status.svg"/></a>
-    <a href="https://david-dm.org/Hazmi35/discordeco.js?type=dev"><img src="https://david-dm.org/Hazmi35/discordeco.js/dev-status.svg"/></a>
+    <a href="https://travis-ci.org/DiscordBotsDev/dbdapi.js"><img src="https://travis-ci.org/DiscordBotsDev/dbdapi.js.svg"/></a>
+    <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/status.svg"/></a>
+    <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js?type=dev"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/dev-status.svg"/></a>
     </p>
 </div>
 
