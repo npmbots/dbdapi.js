@@ -8,8 +8,6 @@
     <br>
     <a href="https://travis-ci.com/DiscordBotsDev/dbdapi.js.svg?branch=master"><img src="https://travis-ci.org/DiscordBotsDev/dbdapi.js.svg"/></a>
     <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/status.svg"/></a>
-    <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js?type=dev"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/dev-status.svg"/></a>
-    </p>
 </div>
 
 ## Documentation
