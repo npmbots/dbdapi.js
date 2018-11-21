@@ -61,7 +61,6 @@ module.exports = class DiscordBotsDev {
         /**
          * Posts your bot stats to DiscordBots Dev (serversCount and usersCount)
          * [!IMPORTANT!] This function needs DiscordBotsDev token.
-         * @param {String} botID Your bot's user id
          * @param {String} serversCount Your bot's servers count
          * @param {String} usersCount Your bot's users count
          */
