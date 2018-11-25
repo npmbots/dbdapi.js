@@ -50,8 +50,28 @@ module.exports = class DiscordBotsDev {
             const owner = await fetchUser(bodyRaw.ownerID);
             const botUser = await fetchUser(bodyRaw.botID);
             const body = {
-                owner: owner,
-                bot: botUser,
+                owner: {
+                    id: owner.id,
+                    username: owner.username,
+                    discriminator: owner.discriminator,
+                    tag: owner.tag,
+                    avatar: owner.avatar,
+                    avatarURL: owner.avatarURL,
+                    displayAvatarURL: owner.displayAvatarURL,
+                    bot: owner.bot,
+                    bots: owner.bots
+                },
+                bot: {
+                    id: botUser.id,
+                    username: botUser.username,
+                    discriminator: botUser.discriminator,
+                    tag: botUser.tag,
+                    avatar: botUser.avatar,
+                    avatarURL: botUser.avatarURL,
+                    displayAvatarURL: botUser.displayAvatarURL,
+                    bot: botUser.bot,
+                    ownedBy: botUser.ownedBy
+                },
                 prefix: bodyRaw.prefix,
                 accepted: bodyRaw.accepted,
                 claimed: bodyRaw.claimed
@@ -88,7 +108,7 @@ module.exports = class DiscordBotsDev {
             } else {
                 user.bots = body.bots;
             }
-            
+
             return user;
         };
 
@@ -105,14 +125,18 @@ module.exports = class DiscordBotsDev {
 };
 
 async function tokenValidator(token, baseAPIUrl, version) { //eslint-disable-line no-unused-vars
-    var response = await request.post(baseAPIUrl + '/tokenValidator').send({ token: token }).set('user-agent', `dbdapi.js/${version}`);
+    var response = await request.post(baseAPIUrl + '/tokenValidator').send({
+        token: token
+    }).set('user-agent', `dbdapi.js/${version}`);
     var body = await response.body;
     if (body.isThatTokenValid === false) return "false";
     else return "true";
 }
 
 async function fetchToken(token, client, ownerID, baseAPIUrl, version) {
-    var response = await request.post(baseAPIUrl + '/fetchToken').send({ token: token }).send('user-agent', `dbdapi.js/${version}`);
+    var response = await request.post(baseAPIUrl + '/fetchToken').send({
+        token: token
+    }).send('user-agent', `dbdapi.js/${version}`);
     var body = await response.body;
     if (body.valid === false) throw new Error('Invalid DiscordBots Development API Token');
     if (body.owned === false) return 'Unknown Token';
@@ -143,5 +167,26 @@ async function fetchUser(userID) {
         body: user
     } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', `dbdapi.js/${version}`);
 
-    return user;
+    var userResolved = null;
+
+    var body = user;
+
+    userResolved = {
+        id: body.id,
+        username: body.username,
+        discriminator: body.discriminator,
+        tag: body.tag,
+        avatar: body.avatar,
+        avatarURL: body.avatarURL,
+        displayAvatarURL: body.displayAvatarURL,
+        bot: body.bot
+    };
+
+    if (user.bot === true || body.bot === true) {
+        userResolved.ownedBy = body.ownedBy;
+    } else {
+        userResolved.bots = body.bots;
+    }
+
+    return userResolved;
 }
