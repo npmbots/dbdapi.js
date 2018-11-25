@@ -20,6 +20,8 @@ module.exports = class DiscordBotsDev {
         this.version = require('../package.json').version; //eslint-disable-line
         var loggedInAs = '' //eslint-disable-line
 
+        client.user = {};
+
         client.user.id = clientID;
 
         //Validate Token
