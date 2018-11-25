@@ -6,7 +6,7 @@
     <p>
     <a href="https://npmjs.com/package/dbdapi.js"><img src="https://nodei.co/npm/dbdapi.js.png?downloads=true&stars=false"/></a>
     <br>
-    <a href="https://travis-ci.com/DiscordBotsDev/dbdapi.js.svg"><img src="https://travis-ci.org/DiscordBotsDev/dbdapi.js.svg"/></a>
+    <a href="https://travis-ci.com/DiscordBotsDev/dbdapi.js"><img src="https://travis-ci.com/DiscordBotsDev/dbdapi.js.svg"/></a>
     <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/status.svg"/></a>
 </div>
 
