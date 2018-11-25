@@ -6,16 +6,17 @@ module.exports = class DiscordBotsDev {
     /**
      * Create new DiscordBotsDev Wrapper Client
      * @param {String} token DiscordBotsDev token
-     * @param {String} client Your bot's client object
+     * @param {String} clientID Your bot's client id
      * @param {String} ownerID Your ID
+     * @param {String} client Your bot client object
      */
-    constructor(token, client, ownerID) {
+    constructor(token, clientID, ownerID, client) {
         this.baseAPIUrl = 'https://discordbots-dev.tru.io/api';
         if (!client) throw new Error('Invalid client options');
         //if (!client.user.id) throw new Error('Unsupported Library')
-        if (isNaN(client.user.id)) throw new Error('Invalid bot id');
+        if (isNaN(clientID)) throw new Error('Invalid bot id');
         if (!ownerID) throw new Error('Invalid client options');
-        if (isNaN(ownerID)) return new Error('Invalid bot id');
+        if (isNaN(ownerID)) return new Error('Invalid client id');
         this.version = require('../package.json').version; //eslint-disable-line
         var loggedInAs = '' //eslint-disable-line
 
