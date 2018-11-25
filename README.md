@@ -1,6 +1,6 @@
 # DBD API
 
-[WIP] An API Wrapper for [Discord Bots Development](https://discordbots-dev.tru.io/api)
+An API Wrapper for [Discord Bots Development](https://discordbots-dev.tru.io/api)
 
 <div align="center">
     <p>
@@ -12,7 +12,7 @@
 </div>
 
 ## Documentation
-Documentation is still in WIP
+WIP :P
 
 ## How to install
 ```bash
