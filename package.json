@@ -11,8 +11,15 @@
     "url": "git+https://github.com/DiscordBotsDev/dbdapi.js.git"
   },
   "keywords": [
+    "Discord",
+    "Bot",
+    "Discord Bot",
+    "Discord Bots",
+    "DiscordBots Development",
     "DiscordBotsDev",
-    "dbdapi.js"
+    "dbdapi.js",
+    "dbd",
+    "api"
   ],
   "author": "Hazmi35",
   "license": "MIT",
