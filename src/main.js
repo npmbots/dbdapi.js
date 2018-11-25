@@ -1,1 +1,1 @@
-module.exports = require('./DiscordBotsDev'); ) {
+module.exports = require('./DiscordBotsDev'); ) { ()
