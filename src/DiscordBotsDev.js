@@ -8,7 +8,7 @@ module.exports = class DiscordBotsDev {
      * @param {String} token DiscordBotsDev token
      * @param {String} clientID Your bot's client id
      * @param {String} ownerID Your ID
-     * @param {String} client Your bot client object
+     * @param {String} client Your bot's client object
      */
     constructor(token, clientID, ownerID, client) {
         this.baseAPIUrl = 'https://discordbots-dev.tru.io/api';
