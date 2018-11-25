@@ -11,7 +11,7 @@ An API Wrapper for [Discord Bots Development](https://discordbots-dev.tru.io/api
     <a href="https://david-dm.org/DiscordBotsDev/dbdapi.js"><img src="https://david-dm.org/DiscordBotsDev/dbdapi.js/status.svg"/></a>
 </div>
 
-## Documentation
+# Documentation
 WIP :P
 
 ## How to install
@@ -20,22 +20,48 @@ npm i dbdapi.js
 ```
 
 # Examples
+
+## With async/await
 ```js
 const Discord = require('discord.js');
 const DiscordBotsDev = require('dbdapi.js');
 
 const bot = new Discord.Client();
-const DBD = new DiscordBotsDev('dbd token', bot, 'your id / bot owner id');
+const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id', bot);
 
 bot.on('ready', () => console.log("Ready!"));
 
 bot.on('message', async message => {
-    var args = message.content.split(" ");
+    var args = message.content.split(" ").replace('.', '');
 
     if (messsage.content === '.bot') {
-        var botData = DBD.getBot(args[1]);
-        if (!botData) return message.channel.send("That bot does not registered on Discord Bots Development");
-        message.channel.send(`${botData.bot.tag} by ${botData.owner.tag} with prefix ${botData.prefix}.`);
+        var botData = await DBD.getBot(args[0]);
+        if (!botData || botData === undefined) return message.channel.send('Sorry, that bot was not registered *yet* on DiscordBots Developement');
+        message.channel.send(`${botData.bot.tag} by ${botData.owner.tag} with prefix ${botData.prefix}!`);
+    }
+});
+
+bot.login('bot token');
+```
+
+## With .then() [Promises]
+```js
+const Discord = require('discord.js');
+const DiscordBotsDev = require('dbdapi.js');
+
+const bot = new Discord.Client();
+const DBD = new const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id', bot);
+
+bot.on('ready', () => console.log("Ready!"));
+
+bot.on('message', message => {
+    var args = message.content.split(" ").replace('.', '');
+
+    if (messsage.content === '.bot') {
+        DBD.getBot(args[0]).then(botData => {
+            if (!botData || botData === undefined) return message.channel.send('Sorry, that bot was not registered *yet* on DiscordBots Developement');
+            message.channel.send(`${botData.bot.tag} by ${botData.owner.tag} with prefix ${botData.prefix}!`);
+        });
     }
 });
 
