@@ -1,6 +1,6 @@
 # DBD API
 
-An API Wrapper for [Discord Bots Development](https://discordbots-dev.tru.io/api)
+An API Wrapper for [Discord Bots Development API](https://discordbots-dev.tru.io/api)
 
 <div align="center">
     <p>
