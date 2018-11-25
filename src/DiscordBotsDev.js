@@ -12,7 +12,7 @@ module.exports = class DiscordBotsDev {
      */
     constructor(token, clientID, ownerID, client) {
         this.baseAPIUrl = 'https://discordbots-dev.tru.io/api';
-        if (!client) throw new Error('Invalid client options');
+        if (!client) client = {};
         //if (!client.user.id) throw new Error('Unsupported Library')
         if (isNaN(clientID)) throw new Error('Invalid bot id');
         if (!ownerID) throw new Error('Invalid client options');
@@ -29,11 +29,12 @@ module.exports = class DiscordBotsDev {
             tokenValidator(token, this.baseAPIUrl, this.version).then(valid => {
                 if (valid === "false") {
                     throw new Error('Invalid DiscordBots Development API Token');
-                    return; //eslint-disable-line
+                     //eslint-disable-line
                 } else {
                     if (valid === "true") {
                         fetchToken(token, client, ownerID, this.baseAPIUrl, this.version).then(fetchedToken => {
-                            console.log(`You are logged in as : ${fetchedToken.ownedBy.tag}`);
+                            //console.log(fetchedToken.ownedBy.bots.filter(bot => bot.id === clientID));
+                            console.log(`[DBDAPI] You are logged in as: ${fetchedToken.ownedBy.tag}`);
                             loggedInAs = fetchedToken.ownedBy;
                         });
                     }
@@ -139,9 +140,9 @@ async function tokenValidator(token, baseAPIUrl, version) { //eslint-disable-lin
 }
 
 async function fetchToken(token, client, ownerID, baseAPIUrl, version) {
-    var response = await request.post(baseAPIUrl + '/fetchToken').send({
+    var response = await request.post(baseAPIUrl + '/fetchToken').set('content-type', 'application/json').send({
         token: token
-    }).send('user-agent', `dbdapi.js/${version}`);
+    }).set('user-agent', `dbdapi.js/${version}`);
     var body = await response.body;
     if (body.valid === false) throw new Error('Invalid DiscordBots Development API Token');
     if (body.owned === false) return 'Unknown Token';
