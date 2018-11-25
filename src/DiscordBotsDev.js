@@ -17,9 +17,24 @@ module.exports = class DiscordBotsDev {
         if (!ownerID) throw new Error('Invalid client options');
         if (isNaN(ownerID)) return new Error('Invalid bot id');
         this.version = require('../package.json').version; //eslint-disable-line
+        var loggedInAs = '' //eslint-disable-line
+
+        //Validate Token
         if (token) {
-            tokenValidator(token, client.user.id, ownerID, this.baseAPIUrl, this.version);
-        } else console.warn("No DiscordBotsDev Token was provided");
+            tokenValidator(token, this.baseAPIUrl, this.version).then(valid => {
+                if (valid === "false") {
+                    throw new Error('Invalid DiscordBots Development API Token');
+                    return; //eslint-disable-line
+                } else {
+                    if (valid === "true") {
+                        fetchToken(token, client, ownerID, this.baseAPIUrl, this.version).then(fetchedToken => {
+                            console.log(`You are logged in as : ${fetchedToken.ownedBy.tag}`);
+                            loggedInAs = fetchedToken.ownedBy;
+                        });
+                    }
+                }
+            });
+        }
 
         /**
          *  Get any specified bot data using bot id
@@ -29,7 +44,7 @@ module.exports = class DiscordBotsDev {
         this.getBot = async (ID) => {
             if (!ID || !client) throw new Error('[getBot] No ID was Provided.');
             var userID = ID || client.user.id;
-            const response = await request.get(`https://discordbots-dev.tru.io/api/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/api/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
             const bodyRaw = await response.body;
             if (bodyRaw.error === "bot_not_found") return undefined;
             const owner = await fetchUser(bodyRaw.ownerID);
@@ -47,15 +62,34 @@ module.exports = class DiscordBotsDev {
         /**
          * Fetches User from Discord 
          * @param {String} ID 
-         * @returns {Promise<Object>}
+         * @returns {Promise<Object>} A Promise that contains user object
          */
         this.fetchUser = async (ID) => {
             if (!ID) throw new Error('[fetchUser] No ID was Provided.');
-            const response = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${ID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/api/fetchUser?id=${ID}`).set('user-agent', `dbdapi.js/${this.version}`);
             const body = await response.body;
+            var user = null; //eslint-disable-line
 
             if (body.error === "unknown_user") return undefined;
-            else return body;
+
+            user = {
+                id: body.id,
+                username: body.username,
+                discriminator: body.discriminator,
+                tag: body.tag,
+                avatar: body.avatar,
+                avatarURL: body.avatarURL,
+                displayAvatarURL: body.displayAvatarURL,
+                bot: body.bot
+            };
+
+            if (user.bot === true || body.bot === true) {
+                user.ownedBy = body.ownedBy;
+            } else {
+                user.bots = body.bots;
+            }
+            
+            return user;
         };
 
         /**
@@ -70,41 +104,44 @@ module.exports = class DiscordBotsDev {
     }
 };
 
-function tokenValidator(token, botID, ownerID, baseAPIUrl, version) {
-    request.post(baseAPIUrl + '/tokenValidator').set('user-agent', `dbdapi.js/${version}`).send({
-        token: token
-    }).then(res => {
-        if (res.body.isThatTokenValid === false) throw new Error("Invalid Token");
-        else {
-            //console.log(botID);
-            fetchToken(token, botID, ownerID, baseAPIUrl, version);
-        }
-    });
+async function tokenValidator(token, baseAPIUrl, version) { //eslint-disable-line no-unused-vars
+    var response = await request.post(baseAPIUrl + '/tokenValidator').send({ token: token }).set('user-agent', `dbdapi.js/${version}`);
+    var body = await response.body;
+    if (body.isThatTokenValid === false) return "false";
+    else return "true";
 }
 
-function fetchToken(token, botID, ownerID, baseAPIUrl, version) {
-    request.post(baseAPIUrl + '/fetchToken').set('user-agent', `dbdapi.js/${version}`).send({
-        token: token
-    }).then(async res => {
-        var ownerUser = res.body.ownedBy;
-        //console.log(botID);
-        try {
-            var botDataRaw = await request.get(`${baseAPIUrl}/bots/${botID}`).set('user-agent', `dbdapi.js/${version}`); //eslint-disable-line
-        } catch (e) {
-            if (e.message === 'Not Found') throw new Error('Your bot was not registered on DiscordBots Dev Database, please invite your bot on DiscordBots Dev Official Server.');
-            else throw new Error(e);
+async function fetchToken(token, client, ownerID, baseAPIUrl, version) {
+    var response = await request.post(baseAPIUrl + '/fetchToken').send({ token: token }).send('user-agent', `dbdapi.js/${version}`);
+    var body = await response.body;
+    if (body.valid === false) throw new Error('Invalid DiscordBots Development API Token');
+    if (body.owned === false) return 'Unknown Token';
+    if (body.ownedBy === null) return "Unknown Token";
+    //var ownedArrays = new Array();
+    //bot.ownedBy
+    var returns = {
+        valid: body.valid,
+        owned: body.owned,
+        ownedBy: {
+            id: body.ownedBy.id,
+            username: body.ownedBy.username,
+            discriminator: body.ownedBy.discriminator,
+            tag: body.ownedBy.tag,
+            avatar: body.ownedBy.avatar,
+            avatarURL: body.ownedBy.avatarURL,
+            displayAvatarURL: body.ownedBy.displayAvatarURL,
+            bot: body.ownedBy.bot,
+            bots: body.ownedBy.bots
         }
-        var botData = botDataRaw.body;
-        if (botData.error === "bot_not_found") throw new Error('Your bot was not registered on DiscordBots Dev Database, please invite your bot on DiscordBots Development Official Server.');
-        //console.log(botData, typeof botData);
-        if (botData.ownerID !== ownerUser.id) throw new Error("You are not owner of this bot.");
-        else return 'success';
-    });
+    };
+    return returns;
 }
 
 async function fetchUser(userID) {
     const version = require('../package.json').version;
-    let { body: user } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', `dbdapi.js/${version}`);
+    let {
+        body: user
+    } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', `dbdapi.js/${version}`);
 
     return user;
 }
