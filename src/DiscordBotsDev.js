@@ -50,7 +50,7 @@ module.exports = class DiscordBotsDev {
         this.getBot = async (ID) => {
             if (!ID || !client) throw new Error('[getBot] No ID was Provided.');
             var userID = ID || client.user.id;
-            const response = await request.get(`${this.baseAPIUrl}/api/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
             const bodyRaw = await response.body;
             if (bodyRaw.error === "bot_not_found") return undefined;
             const owner = await fetchUser(bodyRaw.ownerID);
@@ -92,7 +92,7 @@ module.exports = class DiscordBotsDev {
          */
         this.fetchUser = async (ID) => {
             if (!ID) throw new Error('[fetchUser] No ID was Provided.');
-            const response = await request.get(`${this.baseAPIUrl}/api/fetchUser?id=${ID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/fetchUser?id=${ID}`).set('user-agent', `dbdapi.js/${this.version}`);
             const body = await response.body;
             var user = null; //eslint-disable-line
 
