@@ -18,15 +18,17 @@ module.exports = class DiscordBotsDev {
         this.version = require('../package.json').version; //eslint-disable-line
         var loggedInAs = '' //eslint-disable-line
 
+        var userAgent = `dbdapi.js/${this.version}`; //eslint-disable-line
+
         //Validate Token
         if (token) {
-            tokenValidator(token, this.baseAPIUrl, this.version).then(valid => {
+            tokenValidator(token, this.baseAPIUrl, userAgent).then(valid => {
                 if (valid === "false") {
                     throw new Error('Invalid DiscordBots Development API Token');
                     //eslint-disable-line
                 } else {
                     if (valid === "true") {
-                        fetchToken(token, clientID, ownerID, this.baseAPIUrl, this.version).then(fetchedToken => {
+                        fetchToken(token, clientID, ownerID, this.baseAPIUrl, userAgent).then(fetchedToken => {
                             //console.log(fetchedToken.ownedBy.bots.filter(bot => bot.id === clientID));
                             console.log(`[DBDAPI] You are logged in as: ${fetchedToken.ownedBy.tag}`);
                             loggedInAs = fetchedToken.ownedBy;
@@ -44,7 +46,7 @@ module.exports = class DiscordBotsDev {
         this.getBot = async (ID) => {
             if (!ID || !clientID) throw new Error('[getBot] No ID was Provided.');
             var userID = ID || clientID;
-            const response = await request.get(`${this.baseAPIUrl}/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/bots/${userID}`).set('user-agent', userAgent);
             const bodyRaw = await response.body;
             if (bodyRaw.error === "bot_not_found") return undefined;
             const owner = await fetchUser(bodyRaw.ownerID);
@@ -87,7 +89,7 @@ module.exports = class DiscordBotsDev {
          */
         this.fetchUser = async (ID) => {
             if (!ID) throw new Error('[fetchUser] No ID was Provided.');
-            const response = await request.get(`${this.baseAPIUrl}/fetchUser?id=${ID}`).set('user-agent', `dbdapi.js/${this.version}`);
+            const response = await request.get(`${this.baseAPIUrl}/fetchUser?id=${ID}`).set('user-agent', userAgent);
             const body = await response.body;
             var user = null; //eslint-disable-line
 
@@ -125,19 +127,19 @@ module.exports = class DiscordBotsDev {
     }
 };
 
-async function tokenValidator(token, baseAPIUrl, version) { //eslint-disable-line no-unused-vars
+async function tokenValidator(token, baseAPIUrl, userAgent) { //eslint-disable-line no-unused-vars
     var response = await request.post(baseAPIUrl + '/tokenValidator').send({
         token: token
-    }).set('user-agent', `dbdapi.js/${version}`);
+    }).set('user-agent', userAgent);
     var body = await response.body;
     if (body.isThatTokenValid === false) return "false";
     else return "true";
 }
 
-async function fetchToken(token, clientID, ownerID, baseAPIUrl, version) {
+async function fetchToken(token, clientID, ownerID, baseAPIUrl, userAgent) {
     var response = await request.post(baseAPIUrl + '/fetchToken').set('content-type', 'application/json').send({
         token: token
-    }).set('user-agent', `dbdapi.js/${version}`);
+    }).set('user-agent', userAgent);
     var body = await response.body;
     if (body.valid === false) throw new Error('Invalid DiscordBots Development API Token');
     if (body.owned === false) return 'Unknown Token';
@@ -181,9 +183,10 @@ async function fetchToken(token, clientID, ownerID, baseAPIUrl, version) {
 
 async function fetchUser(userID) {
     const version = require('../package.json').version;
+    var userAgent = `dbdapi.js/${version}`;
     let {
         body: user
-    } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', `dbdapi.js/${version}`);
+    } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', userAgent);
 
     if (user.error === "unknown_user") return undefined;
 
