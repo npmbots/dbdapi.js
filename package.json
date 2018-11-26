@@ -1,6 +1,6 @@
 {
   "name": "dbdapi.js",
-  "version": "0.5.8-pre",
+  "version": "0.5.9-pre",
   "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,15 @@
     "url": "git+https://github.com/DiscordBotsDev/dbdapi.js.git"
   },
   "keywords": [
+    "Discord",
+    "Bot",
+    "Discord Bot",
+    "Discord Bots",
+    "DiscordBots Development",
     "DiscordBotsDev",
-    "dbdapi.js"
+    "dbdapi.js",
+    "dbd",
+    "api"
   ],
   "author": "Hazmi35",
   "license": "MIT",
@@ -24,6 +31,7 @@
     "superagent": "^4.0.0"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "eslint": "^5.9.0"
   }
 }
