@@ -8,11 +8,9 @@ module.exports = class DiscordBotsDev {
      * @param {String} token DiscordBotsDev token
      * @param {String} clientID Your bot's client id
      * @param {String} ownerID Your ID
-     * @param {String} client Your bot's client object
      */
-    constructor(token, clientID, ownerID, client) {
+    constructor(token, clientID, ownerID) {
         this.baseAPIUrl = 'https://discordbots-dev.tru.io/api';
-        if (!client) client = {};
         //if (!client.user.id) throw new Error('Unsupported Library')
         if (isNaN(clientID)) throw new Error('Invalid bot id');
         if (!ownerID) throw new Error('Invalid client options');
@@ -20,19 +18,15 @@ module.exports = class DiscordBotsDev {
         this.version = require('../package.json').version; //eslint-disable-line
         var loggedInAs = '' //eslint-disable-line
 
-        client.user = {};
-
-        client.user.id = clientID;
-
         //Validate Token
         if (token) {
             tokenValidator(token, this.baseAPIUrl, this.version).then(valid => {
                 if (valid === "false") {
                     throw new Error('Invalid DiscordBots Development API Token');
-                     //eslint-disable-line
+                    //eslint-disable-line
                 } else {
                     if (valid === "true") {
-                        fetchToken(token, client, ownerID, this.baseAPIUrl, this.version).then(fetchedToken => {
+                        fetchToken(token, clientID, ownerID, this.baseAPIUrl, this.version).then(fetchedToken => {
                             //console.log(fetchedToken.ownedBy.bots.filter(bot => bot.id === clientID));
                             console.log(`[DBDAPI] You are logged in as: ${fetchedToken.ownedBy.tag}`);
                             loggedInAs = fetchedToken.ownedBy;
@@ -48,13 +42,14 @@ module.exports = class DiscordBotsDev {
          * @returns {Promise<Object>} A promise that contains data of the bot
          */
         this.getBot = async (ID) => {
-            if (!ID || !client) throw new Error('[getBot] No ID was Provided.');
-            var userID = ID || client.user.id;
+            if (!ID || !clientID) throw new Error('[getBot] No ID was Provided.');
+            var userID = ID || clientID;
             const response = await request.get(`${this.baseAPIUrl}/bots/${userID}`).set('user-agent', `dbdapi.js/${this.version}`);
             const bodyRaw = await response.body;
             if (bodyRaw.error === "bot_not_found") return undefined;
             const owner = await fetchUser(bodyRaw.ownerID);
             const botUser = await fetchUser(bodyRaw.botID);
+            //if (botUser.bot !== true) return undefined;
             const body = {
                 owner: {
                     id: owner.id,
@@ -139,7 +134,7 @@ async function tokenValidator(token, baseAPIUrl, version) { //eslint-disable-lin
     else return "true";
 }
 
-async function fetchToken(token, client, ownerID, baseAPIUrl, version) {
+async function fetchToken(token, clientID, ownerID, baseAPIUrl, version) {
     var response = await request.post(baseAPIUrl + '/fetchToken').set('content-type', 'application/json').send({
         token: token
     }).set('user-agent', `dbdapi.js/${version}`);
@@ -164,6 +159,23 @@ async function fetchToken(token, client, ownerID, baseAPIUrl, version) {
             bots: body.ownedBy.bots
         }
     };
+
+    var bots = [];
+    returns.ownedBy.bots.forEach(bot => {
+        bots.push(bot.botID);
+    });
+    //console.log(bots);
+    if (!bots.includes(clientID)) {
+        var bot = await fetchUser(clientID);
+        if (!bot) throw new Error('Invalid clientID');
+        if (bot.bot !== true) throw new Error(`The clientID (${clientID}) is not a bot`);
+        throw new Error(`You are not owner of this bot (${bot.tag})`);
+    }
+
+    var ownerUser = await fetchUser(ownerID);
+
+    if (!ownerUser) throw new Error('Invalid ownerID');
+
     return returns;
 }
 
@@ -172,6 +184,8 @@ async function fetchUser(userID) {
     let {
         body: user
     } = await request.get(`https://discordbots-dev.tru.io/api/fetchUser?id=${userID}`).set('user-agent', `dbdapi.js/${version}`);
+
+    if (user.error === "unknown_user") return undefined;
 
     var userResolved = null;
 
