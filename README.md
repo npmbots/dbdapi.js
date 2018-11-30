@@ -28,7 +28,7 @@ const Discord = require('discord.js');
 const DiscordBotsDev = require('dbdapi.js');
 
 const bot = new Discord.Client();
-const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id', bot);
+const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id');
 
 bot.on('ready', () => console.log("Ready!"));
 
@@ -51,7 +51,7 @@ const Discord = require('discord.js');
 const DiscordBotsDev = require('dbdapi.js');
 
 const bot = new Discord.Client();
-const DBD = new const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id', bot);
+const DBD = new const DBD = new DiscordBotsDev('DiscordBots Development API token', "your bot's user id", 'your id / bot owner id');
 
 bot.on('ready', () => console.log("Ready!"));
 
