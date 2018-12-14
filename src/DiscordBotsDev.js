@@ -75,8 +75,8 @@ module.exports = class DiscordBotsDev {
                     avatarURL: botUser.avatarURL,
                     displayAvatarURL: botUser.displayAvatarURL,
                     bot: botUser.bot,
-                    createdAt: owner.createdAt,
-                    createdTimestamp: owner.createdTimestamp,
+                    createdAt: botUser.createdAt,
+                    createdTimestamp: botUser.createdTimestamp,
                     ownedBy: botUser.ownedBy
                 },
                 prefix: bodyRaw.prefix,
