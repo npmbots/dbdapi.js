@@ -83,7 +83,10 @@ module.exports = class DiscordBotsDev {
                 accepted: bodyRaw.accepted,
                 claimed: bodyRaw.claimed
             };
-            body.bot.ownedBy.createdAt = new Date(body.bot.ownedBy.createdTimestamp)
+            let bodyBotOwnedByBots = body.bot.ownedBy.bots;
+            delete body.bot.ownedBy.bots;
+            body.bot.ownedBy.createdAt = new Date(body.bot.ownedBy.createdTimestamp);
+            body.bot.ownedBy.bots = bodyBotOwnedByBots
             return body;
         };
 
