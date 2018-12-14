@@ -62,7 +62,7 @@ module.exports = class DiscordBotsDev {
                     avatarURL: owner.avatarURL,
                     displayAvatarURL: owner.displayAvatarURL,
                     bot: owner.bot,
-                    createdAt: owner.createdAt,
+                    createdAt: new Date(owner.createdTimestamp),
                     createdTimestamp: owner.createdTimestamp,
                     bots: owner.bots
                 },
@@ -75,7 +75,7 @@ module.exports = class DiscordBotsDev {
                     avatarURL: botUser.avatarURL,
                     displayAvatarURL: botUser.displayAvatarURL,
                     bot: botUser.bot,
-                    createdAt: botUser.createdAt,
+                    createdAt: new Date(owner.createdTimestamp),
                     createdTimestamp: botUser.createdTimestamp,
                     ownedBy: botUser.ownedBy
                 },
@@ -108,7 +108,7 @@ module.exports = class DiscordBotsDev {
                 avatarURL: body.avatarURL,
                 displayAvatarURL: body.displayAvatarURL,
                 bot: body.bot,
-                createdAt: body.createdAt,
+                createdAt: new Date(body.createdTimestamp),
                 createdTimestamp: body.createdTimestamp
             };
 
@@ -164,7 +164,7 @@ async function fetchToken(token, clientID, ownerID, baseAPIUrl, userAgent) {
             avatarURL: body.ownedBy.avatarURL,
             displayAvatarURL: body.ownedBy.displayAvatarURL,
             bot: body.ownedBy.bot,
-            createdAt: body.ownedBy.createdAt,
+            createdAt: new Date(body.ownedBy.createdTimestamp),
             createdTimestamp: body.ownedBy.createdTimestamp,
             bots: body.ownedBy.bots
         }
@@ -211,7 +211,7 @@ async function fetchUser(userID) {
         avatarURL: body.avatarURL,
         displayAvatarURL: body.displayAvatarURL,
         bot: body.bot,
-        createdAt: body.createdAt,
+        createdAt: new Date(body.createdTimestamp),
         createdTimestamp: body.createdTimestamp
     };
 
