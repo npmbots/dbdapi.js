@@ -103,7 +103,9 @@ module.exports = class DiscordBotsDev {
                 avatar: body.avatar,
                 avatarURL: body.avatarURL,
                 displayAvatarURL: body.displayAvatarURL,
-                bot: body.bot
+                bot: body.bot,
+                createdAt: body.createdAt,
+                createdTimestamp: body.createdTimestamp
             };
 
             if (user.bot === true || body.bot === true) {
@@ -158,6 +160,8 @@ async function fetchToken(token, clientID, ownerID, baseAPIUrl, userAgent) {
             avatarURL: body.ownedBy.avatarURL,
             displayAvatarURL: body.ownedBy.displayAvatarURL,
             bot: body.ownedBy.bot,
+            createdAt: body.ownedBy.createdAt,
+            createdTimestamp: body.ownedBy.createdTimestamp,
             bots: body.ownedBy.bots
         }
     };
@@ -202,7 +206,9 @@ async function fetchUser(userID) {
         avatar: body.avatar,
         avatarURL: body.avatarURL,
         displayAvatarURL: body.displayAvatarURL,
-        bot: body.bot
+        bot: body.bot,
+        createdAt: body.createdAt,
+        createdTimestamp: body.createdTimestamp
     };
 
     if (user.bot === true || body.bot === true) {
