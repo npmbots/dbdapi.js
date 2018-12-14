@@ -62,6 +62,8 @@ module.exports = class DiscordBotsDev {
                     avatarURL: owner.avatarURL,
                     displayAvatarURL: owner.displayAvatarURL,
                     bot: owner.bot,
+                    createdAt: new Date(owner.createdTimestamp),
+                    createdTimestamp: owner.createdTimestamp,
                     bots: owner.bots
                 },
                 bot: {
@@ -73,6 +75,8 @@ module.exports = class DiscordBotsDev {
                     avatarURL: botUser.avatarURL,
                     displayAvatarURL: botUser.displayAvatarURL,
                     bot: botUser.bot,
+                    createdAt: new Date(botUser.createdTimestamp),
+                    createdTimestamp: botUser.createdTimestamp,
                     ownedBy: botUser.ownedBy
                 },
                 prefix: bodyRaw.prefix,
@@ -103,7 +107,9 @@ module.exports = class DiscordBotsDev {
                 avatar: body.avatar,
                 avatarURL: body.avatarURL,
                 displayAvatarURL: body.displayAvatarURL,
-                bot: body.bot
+                bot: body.bot,
+                createdAt: new Date(body.createdTimestamp),
+                createdTimestamp: body.createdTimestamp
             };
 
             if (user.bot === true || body.bot === true) {
@@ -158,6 +164,8 @@ async function fetchToken(token, clientID, ownerID, baseAPIUrl, userAgent) {
             avatarURL: body.ownedBy.avatarURL,
             displayAvatarURL: body.ownedBy.displayAvatarURL,
             bot: body.ownedBy.bot,
+            createdAt: new Date(body.ownedBy.createdTimestamp),
+            createdTimestamp: body.ownedBy.createdTimestamp,
             bots: body.ownedBy.bots
         }
     };
@@ -202,7 +210,9 @@ async function fetchUser(userID) {
         avatar: body.avatar,
         avatarURL: body.avatarURL,
         displayAvatarURL: body.displayAvatarURL,
-        bot: body.bot
+        bot: body.bot,
+        createdAt: new Date(body.createdTimestamp),
+        createdTimestamp: body.createdTimestamp
     };
 
     if (user.bot === true || body.bot === true) {
