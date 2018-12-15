@@ -1,6 +1,6 @@
 {
   "name": "dbdapi.js",
-  "version": "0.6.5-pre",
+  "version": "0.6.7-pre",
   "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
   "main": "index.js",
   "scripts": {
