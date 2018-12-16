@@ -21,7 +21,7 @@ module.exports = class DiscordBotsDev {
         var userAgent = `dbdapi.js/${this.version}`; //eslint-disable-line
 
         //Validate Token
-        if (token) {
+        if (token || token !== undefined || token !== '') {
             tokenValidator(token, this.baseAPIUrl, userAgent).then(valid => {
                 if (valid === "false") {
                     throw new Error('Invalid DiscordBots Development API Token');
