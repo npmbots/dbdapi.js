@@ -30,7 +30,7 @@ class DBDRequest {
                 };
                 const options = {
                     hostname: baseAPIUrl,
-                    path: `/api/${endpoint}`,
+                    path: `${endpoint}`,
                     method: 'GET',
                     headers: {}
                 };
@@ -82,7 +82,7 @@ class DBDRequest {
                 };
                 const options = {
                     hostname: baseAPIUrl,
-                    path: `/api/${endpoint}`,
+                    path: `${endpoint}`,
                     method: 'POST',
                     headers: {}
                 };
