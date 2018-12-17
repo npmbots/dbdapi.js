@@ -21,7 +21,7 @@ module.exports = class DiscordBotsDev {
 
         //Validate Token
         if (token || token !== undefined || token !== '') {
-            tokenValidator(token, this.baseAPIUrl, request).then(valid => {
+            tokenValidator(token, request).then(valid => {
                 if (valid === "false") {
                     throw new Error('Invalid DiscordBots Development API Token');
                     //eslint-disable-line
