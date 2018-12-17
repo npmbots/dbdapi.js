@@ -10,7 +10,7 @@ module.exports = class DiscordBotsDev {
      * @param {String} ownerID Your ID
      */
     constructor(token, clientID, ownerID) {
-        this.baseURL = 'discordbots-dev.tru.io'
+        this.baseURL = 'discordbots-dev.tru.io';
         //if (!client.user.id) throw new Error('Unsupported Library')
         const request = new DBDRequest(this.baseURL);
         if (isNaN(clientID)) throw new Error('Invalid bot id');
