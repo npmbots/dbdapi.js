@@ -8,8 +8,9 @@ class DBDRequest {
      * @param {String} baseAPIUrl BaseAPIURL to use
      * @private
      */
-    constructor(baseAPIUrl) {
-        this.baseAPIUrl = baseAPIUrl;
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+        this.baseAPIurl = baseurl + '/api';
         this.version = '1.3.0-dbdrequest';
 
         /**
@@ -29,8 +30,8 @@ class DBDRequest {
                     headers: null
                 };
                 const options = {
-                    hostname: baseAPIUrl,
-                    path: `${endpoint}`,
+                    hostname: baseURL,
+                    path: `/api/${endpoint}`,
                     method: 'GET',
                     headers: {}
                 };
@@ -81,8 +82,8 @@ class DBDRequest {
                     headers: null
                 };
                 const options = {
-                    hostname: baseAPIUrl,
-                    path: `${endpoint}`,
+                    hostname: baseURL,
+                    path: `/api/${endpoint}`,
                     method: 'POST',
                     headers: {}
                 };
