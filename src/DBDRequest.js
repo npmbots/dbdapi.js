@@ -10,7 +10,7 @@ class DBDRequest {
      */
     constructor(baseURL) {
         this.baseURL = baseURL;
-        this.baseAPIurl = baseurl + '/api';
+        this.baseAPIURL = baseURL + '/api';
         this.version = '1.3.0-dbdrequest';
 
         /**
