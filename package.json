@@ -1,7 +1,7 @@
 {
   "name": "dbdapi.js",
-  "version": "0.7.5-pre",
-  "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
+  "version": "0.7.9-pre",
+  "description": "An API wrapper for https://discordbots.xyz/",
   "main": "index.js",
   "scripts": {
     "test": "eslint --ignore-path .gitignore ."
@@ -26,9 +26,9 @@
   "bugs": {
     "url": "https://github.com/DiscordBotsDev/dbdapi.js/issues"
   },
-  "homepage": "https://discordbots-dev.tru.io/",
+  "homepage": "https://discordbots.xyz/",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^5.10.0"
+    "eslint": "^5.12.1"
   }
 }
