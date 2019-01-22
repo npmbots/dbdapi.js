@@ -1,6 +1,6 @@
 {
   "name": "dbdapi.js",
-  "version": "0.7.5-pre",
+  "version": "0.7.9-pre",
   "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,6 @@
   "homepage": "https://discordbots-dev.tru.io/",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^5.10.0"
+    "eslint": "^5.12.1"
   }
 }
