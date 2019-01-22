@@ -49,6 +49,12 @@ class DBDRequest {
                         if (response.ok) {
                             resolve(response);
                         } else {
+                            if (res.statusCode === 403 && response.body.banned === true) {
+                                const bannedErr = new Error(`[DBDAPI] You're banned from DiscordBots Development's website, details:\n ${response.body.reason}`);
+                                Object.assign(bannedErr, response);
+                                reject(bannedErr);
+                                return;
+                            }
                             const err = new Error(`[DBDAPI] ${res.statusCode} ${res.statusMessage}`);
                             Object.assign(err, response);
                             reject(err);
@@ -101,6 +107,12 @@ class DBDRequest {
                         if (response.ok) {
                             resolve(response);
                         } else {
+                            if (res.statusCode === 403 && response.body.banned === true) {
+                                const bannedErr = new Error(`[DBDAPI] You're banned from DiscordBots Development's website, details:\n ${response.body.reason}`);
+                                Object.assign(bannedErr, response);
+                                reject(bannedErr);
+                                return;
+                            }
                             const err = new Error(`[DBDAPI] ${res.statusCode} ${res.statusMessage}`);
                             Object.assign(err, response);
                             reject(err);

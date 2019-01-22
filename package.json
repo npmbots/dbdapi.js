@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/DiscordBotsDev/dbdapi.js/issues"
   },
-  "homepage": "https://github.com/DiscordBotsDev/dbdapi.js#readme",
+  "homepage": "https://discordbots-dev.tru.io/",
   "dependencies": {},
   "devDependencies": {
     "eslint": "^5.10.0"
