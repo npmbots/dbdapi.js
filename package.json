@@ -1,7 +1,7 @@
 {
   "name": "dbdapi.js",
   "version": "0.7.9-pre",
-  "description": "An API wrapper for https://discordbots-dev.tru.io/api/",
+  "description": "An API wrapper for https://discordbots.xyz/",
   "main": "index.js",
   "scripts": {
     "test": "eslint --ignore-path .gitignore ."
