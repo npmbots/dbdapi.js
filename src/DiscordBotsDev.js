@@ -139,9 +139,9 @@ module.exports = class DiscordBotsDev {
          * @param {Object} query The query for your search
          * @returns {Promise<Object>}
          */
-        this.getBots = async (query) => { //eslint-disable-line
-            return "Still In Development";
-        };
+        //this.getBots = async (query) => { //eslint-disable-line
+        //    return "Still In Development";
+       // };
 
         /**
          * Posts your bot stats to DiscordBots Dev (serversCount and usersCount)
@@ -150,9 +150,9 @@ module.exports = class DiscordBotsDev {
          * @param {String} usersCount Your bot's users count
          * @returns {Promise<Object>}
          */
-        this.postStats = async (serversCount, usersCount) => { //eslint-disable-line
-            return "Still In Development";
-        };
+        //this.postStats = async (serversCount, usersCount) => { //eslint-disable-line
+        //    return "Still In Development";
+        //};
     }
 };
 
